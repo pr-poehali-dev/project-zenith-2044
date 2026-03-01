@@ -3,31 +3,29 @@ import { Badge } from "@/components/ui/badge"
 export const sections = [
   {
     id: 'hero',
-    subtitle: <Badge variant="outline" className="text-white border-white">Набор открыт</Badge>,
-    title: "Время строить будущее.",
+    subtitle: <Badge variant="outline" className="text-white border-white/40 bg-white/5 tracking-widest text-xs uppercase">CS2 · Faceit · 1Win Partner</Badge>,
+    title: <>1337<br /><span className="text-neutral-500">Team</span></>,
+    content: 'Профессиональная киберспортивная организация. Играем, побеждаем, растём.',
     showButton: true,
-    buttonText: 'Присоединиться'
+    buttonText: 'Смотреть состав',
   },
   {
-    id: 'about',
-    title: 'Почему мы?',
-    content: 'Мы предоставляем ресурсы, менторство и поддерживающее сообщество для развития ваших проектов.'
+    id: 'roster',
+    title: 'Состав',
+    showRoster: true,
   },
   {
-    id: 'features',
-    title: 'Что мы предлагаем',
-    content: 'Доступ к экспертным консультациям, нетворкингу и современным инструментам для ускорения вашего роста.'
-  },
-  {
-    id: 'testimonials',
-    title: 'Истории успеха',
-    content: 'Узнайте, как участники сообщества превратили свои идеи в успешные проекты.'
+    id: 'partner',
+    title: <>Партнёр<br /><span className="text-[#0099ff]">1Win</span></>,
+    showPartner: true,
   },
   {
     id: 'join',
-    title: 'Начните сейчас',
-    content: 'Готовы вывести свой проект на новый уровень? Присоединяйтесь к нашему сообществу и начните строить своё будущее.',
+    title: <>Следи<br />за нами</>,
+    content: 'Стримы, новости и анонсы турниров — всё в наших каналах.',
+    showSocials: true,
     showButton: true,
-    buttonText: 'Начать'
+    buttonText: 'Telegram канал',
+    buttonHref: 'https://t.me/team1337cs2',
   },
 ]
