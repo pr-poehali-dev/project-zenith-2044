@@ -45,20 +45,6 @@ export default function Section({ id, title, subtitle, content, isActive, showBu
         </motion.div>
       )}
 
-      {id === 'hero' && (
-        <motion.div
-          className="mb-6"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={isActive ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 0.6 }}
-        >
-          <img
-            src="https://cdn.poehali.dev/files/59b4a06f-0cf5-4275-89a4-777e8f277b50.png"
-            alt="1337 Team Logo"
-            className="w-28 h-28 md:w-36 md:h-36 rounded-2xl object-cover border border-white/10"
-          />
-        </motion.div>
-      )}
 
       <motion.h2
         className="text-5xl md:text-7xl lg:text-[6rem] font-black leading-[1] tracking-tight max-w-4xl text-white"
@@ -233,7 +219,7 @@ export default function Section({ id, title, subtitle, content, isActive, showBu
         >
           {buttonHref ? (
             <a href={buttonHref} target="_blank" rel="noopener noreferrer">
-              <Button variant="outline" size="lg" className="text-white bg-transparent border-white/30 hover:bg-white hover:text-black transition-colors font-bold">
+              <Button variant="outline" size="lg" className="text-[#0099ff] bg-transparent border-[#0099ff] hover:bg-[#0099ff] hover:text-white transition-colors font-bold">
                 {buttonText}
               </Button>
             </a>
@@ -242,7 +228,7 @@ export default function Section({ id, title, subtitle, content, isActive, showBu
               variant="outline"
               size="lg"
               onClick={scrollToRoster}
-              className="text-white bg-transparent border-white/30 hover:bg-white hover:text-black transition-colors font-bold"
+              className="text-[#0099ff] bg-transparent border-[#0099ff] hover:bg-[#0099ff] hover:text-white transition-colors font-bold"
             >
               {buttonText}
             </Button>
