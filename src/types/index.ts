@@ -12,6 +12,7 @@ export interface Section {
   showPartner?: boolean
   showSocials?: boolean
   showAchievements?: boolean
+  showUpcoming?: boolean
 }
 
 export interface SectionProps extends Section {

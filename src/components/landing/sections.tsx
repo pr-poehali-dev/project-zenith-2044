@@ -15,6 +15,11 @@ export const sections = [
     showRoster: true,
   },
   {
+    id: 'upcoming',
+    title: <>Ближайшие<br /><span className="text-[#0099ff]">турниры</span></>,
+    showUpcoming: true,
+  },
+  {
     id: 'achievements',
     title: <>Наши<br /><span className="text-neutral-500">результаты</span></>,
     showAchievements: true,

@@ -2,6 +2,7 @@ import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import Icon from "@/components/ui/icon"
 import type { SectionProps } from "@/types"
+import { useState, useEffect } from "react"
 
 const roster = [
   { nick: 'amullet', lvl: 8, flag: '🇺🇦', role: 'Rifler', captain: true },
@@ -26,7 +27,65 @@ const socials = [
   { label: 'Telegram канал', href: 'https://t.me/team1337cs2', icon: 'Send', color: '#29B6F6' },
 ]
 
-export default function Section({ id, title, subtitle, content, isActive, showButton, buttonText, buttonHref, showRoster, showPartner, showSocials, showAchievements }: SectionProps) {
+const tournaments = [
+  { name: 'StarLadder', date: new Date('2026-03-04T00:00:00'), color: '#FFB800' },
+  { name: 'RIEM RIO', date: new Date('2026-03-07T00:00:00'), color: '#0099ff' },
+]
+
+function useCountdown(target: Date) {
+  const calc = () => {
+    const diff = target.getTime() - Date.now()
+    if (diff <= 0) return { d: 0, h: 0, m: 0, s: 0, done: true }
+    return {
+      d: Math.floor(diff / 86400000),
+      h: Math.floor((diff % 86400000) / 3600000),
+      m: Math.floor((diff % 3600000) / 60000),
+      s: Math.floor((diff % 60000) / 1000),
+      done: false,
+    }
+  }
+  const [time, setTime] = useState(calc)
+  useEffect(() => {
+    const id = setInterval(() => setTime(calc()), 1000)
+    return () => clearInterval(id)
+  }, [])
+  return time
+}
+
+function TournamentCard({ t, index, isActive }: { t: typeof tournaments[0], index: number, isActive: boolean }) {
+  const { d, h, m, s, done } = useCountdown(t.date)
+  const pad = (n: number) => String(n).padStart(2, '0')
+  return (
+    <motion.div
+      className="border border-white/10 rounded-2xl p-6 md:p-8 bg-white/5 backdrop-blur-sm"
+      initial={{ opacity: 0, y: 30 }}
+      animate={isActive ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5, delay: 0.2 + 0.15 * index }}
+    >
+      <div className="flex items-center gap-3 mb-5">
+        <span className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: t.color }} />
+        <p className="text-white font-black text-xl md:text-2xl tracking-tight">{t.name}</p>
+        <span className="ml-auto text-xs text-neutral-500 uppercase tracking-widest">
+          {t.date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' })}
+        </span>
+      </div>
+      {done ? (
+        <p className="text-neutral-400 text-sm uppercase tracking-widest">Турнир начался!</p>
+      ) : (
+        <div className="flex gap-4">
+          {[{ v: d, l: 'дней' }, { v: h, l: 'часов' }, { v: m, l: 'минут' }, { v: s, l: 'секунд' }].map(({ v, l }) => (
+            <div key={l} className="flex flex-col items-center">
+              <span className="text-3xl md:text-4xl font-black text-white tabular-nums" style={{ color: t.color }}>{pad(v)}</span>
+              <span className="text-[10px] text-neutral-600 uppercase tracking-widest mt-1">{l}</span>
+            </div>
+          ))}
+        </div>
+      )}
+    </motion.div>
+  )
+}
+
+export default function Section({ id, title, subtitle, content, isActive, showButton, buttonText, buttonHref, showRoster, showPartner, showSocials, showAchievements, showUpcoming }: SectionProps) {
   const scrollToRoster = () => {
     const el = document.getElementById('roster')
     el?.scrollIntoView({ behavior: 'smooth' })
@@ -182,6 +241,19 @@ export default function Section({ id, title, subtitle, content, isActive, showBu
               </motion.div>
             ))}
           </div>
+        </motion.div>
+      )}
+
+      {showUpcoming && (
+        <motion.div
+          className="mt-8 flex flex-col gap-4 max-w-xl w-full"
+          initial={{ opacity: 0 }}
+          animate={isActive ? { opacity: 1 } : {}}
+          transition={{ duration: 0.3 }}
+        >
+          {tournaments.map((t, i) => (
+            <TournamentCard key={t.name} t={t} index={i} isActive={isActive} />
+          ))}
         </motion.div>
       )}
 
