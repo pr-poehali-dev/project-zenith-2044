@@ -11,6 +11,11 @@ const roster = [
   { nick: 'for4ward', lvl: 8, flag: '🇷🇺', role: 'AWP' },
 ]
 
+const achievements = [
+  { place: '5', medal: '🥈', tournament: 'ESL League', label: '5-е место' },
+  { place: '3', medal: '🥉', tournament: 'W CUP 5x5', label: '3-е место' },
+]
+
 const bench = [
   { nick: 'hulsey', lvl: 7, flag: '🇷🇺', role: 'Rifler' },
   { nick: 'winda', lvl: 8, flag: '🇷🇺', role: 'Rifler' },
@@ -21,7 +26,7 @@ const socials = [
   { label: 'Telegram канал', href: 'https://t.me/team1337cs2', icon: 'Send', color: '#29B6F6' },
 ]
 
-export default function Section({ id, title, subtitle, content, isActive, showButton, buttonText, buttonHref, showRoster, showPartner, showSocials }: SectionProps) {
+export default function Section({ id, title, subtitle, content, isActive, showButton, buttonText, buttonHref, showRoster, showPartner, showSocials, showAchievements }: SectionProps) {
   const scrollToRoster = () => {
     const el = document.getElementById('roster')
     el?.scrollIntoView({ behavior: 'smooth' })
@@ -164,6 +169,33 @@ export default function Section({ id, title, subtitle, content, isActive, showBu
               </Button>
             </a>
           </motion.div>
+        </motion.div>
+      )}
+
+      {showAchievements && (
+        <motion.div
+          className="mt-8"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isActive ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <div className="flex flex-col gap-6 mt-4">
+            {achievements.map((a, i) => (
+              <motion.div
+                key={a.tournament}
+                className="flex items-center gap-6 group"
+                initial={{ opacity: 0, x: -30 }}
+                animate={isActive ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.2 + 0.15 * i }}
+              >
+                <span className="text-5xl md:text-6xl">{a.medal}</span>
+                <div>
+                  <p className="text-white font-black text-2xl md:text-3xl">{a.tournament}</p>
+                  <p className="text-neutral-500 text-sm mt-1 uppercase tracking-widest">{a.label}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
       )}
 

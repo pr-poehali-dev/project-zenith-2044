@@ -15,6 +15,11 @@ export const sections = [
     showRoster: true,
   },
   {
+    id: 'achievements',
+    title: <>Наши<br /><span className="text-neutral-500">результаты</span></>,
+    showAchievements: true,
+  },
+  {
     id: 'partner',
     title: <>Партнёр<br /><span className="text-[#0099ff]">1Win</span></>,
     showPartner: true,
